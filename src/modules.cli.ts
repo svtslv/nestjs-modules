@@ -19,7 +19,7 @@ if (argv.help) {
     'options:',
     '  --install    List of modules to install (comma separated values)',
     '  --update     List of modules to update (comma separated values)',
-    '  --update     List of modules to remove (comma separated values)',
+    '  --remove     List of modules to remove (comma separated values)',
     '  --list       Print list of all modules and exit',
     '  --help       Print this list and exit',
     '  --version    Print the version and exit.',
