@@ -103,7 +103,6 @@ const prompt = async() => {
 
   if(promptAction.value === 'install') {
     install(getPackages(promptModules.value));
-    console.log('ok');
     process.exit();
   }
 
