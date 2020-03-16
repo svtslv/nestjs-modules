@@ -5,15 +5,11 @@
 
 ## Table of Contents
 
-- [Description](#description)
 - [List of modules](#list-of-modules)
+- [Description](#description)
 - [Installation](#installation)
 - [Examples](#examples)
 - [License](#license)
-
-## Description
-
-Interactive command-line utility for installing, removing and updating NestJS modules
 
 ## List of modules
 
@@ -26,6 +22,10 @@ Interactive command-line utility for installing, removing and updating NestJS mo
 - Redis module for NestJS - [nestjs-ioredis](https://github.com/svtslv/nestjs-ioredis)
 - Minio module for NestJS - [nestjs-minio](https://github.com/svtslv/nestjs-minio)
 - Mailer module for NestJS - [nestjs-mailer](https://github.com/svtslv/nestjs-mailer)
+
+## Description
+
+Interactive command-line utility for installing, removing and updating NestJS modules
 
 ## Installation
 
