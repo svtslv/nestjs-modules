@@ -1,6 +1,6 @@
 {
   "name": "nestjs-modules",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "NestJS Modules CLI",
   "author": "Sviatoslav H",
   "license": "MIT",

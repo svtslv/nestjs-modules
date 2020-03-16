@@ -89,7 +89,7 @@ const prompt = async() => {
   const promptResult = await prompts({
     type: 'select',
     name: 'value',
-    message: 'Print or install?',
+    message: 'Print or Run?',
     choices: choiceResult,
     hint: '- Space to select. Return to submit'
   });
