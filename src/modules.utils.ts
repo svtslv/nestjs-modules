@@ -61,9 +61,9 @@ export function remove(packages: Packages) {
     return;
   }
   if (packages.prod[0]) {
-    spawn('npm', ['remove', ...packages.prod], { stdio: 'inherit' });
+    spawn.sync('npm', ['remove', ...packages.prod], { stdio: 'inherit' });
   }
   if (packages.dev[0]) {
-    spawn('npm', ['remove', ...packages.dev], { stdio: 'inherit' });
+    spawn.sync('npm', ['remove', ...packages.dev], { stdio: 'inherit' });
   }
 }
