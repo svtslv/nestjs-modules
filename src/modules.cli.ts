@@ -5,7 +5,7 @@ import * as figlet from 'figlet';
 import { argv } from 'optimist';
 import * as prompts from 'prompts';
 import { MODULES } from './modules.constants';
-import { install, remove, getPackages } from './modules.utils';
+import { npmSpawnSync, getPackages, printResult } from './modules.utils';
 
 console.log(chalk.green(figlet.textSync('NestJS-Modules')));
 console.log(chalk.green(`Homepage: ${ require('../package.json').homepage }`));
@@ -41,20 +41,27 @@ if (argv.list) {
 
 if (argv.install) {
   argv.install = argv.install.split(',');
-  install(getPackages(argv.install));
+  const packages = getPackages(argv.install);
+  npmSpawnSync('install', packages);
+  printResult(packages);
   process.exit();
 }
 
 if (argv.remove) {
   argv.remove = argv.remove.split(',');
-  remove(getPackages(argv.remove));
+  const packages = getPackages(argv.remove);
+  npmSpawnSync('remove', packages);
+  printResult(packages);
   process.exit();
 }
 
 if (argv.update) {
   argv.update = argv.update.split(',');
-  remove(getPackages(argv.update));
-  install(getPackages(argv.update));
+  const packages = getPackages(argv.update);
+  packages.dependencies = packages.dependencies.map(item => item + '@latest');
+  packages.devDependencies = packages.devDependencies.map(item => item + '@latest');
+  npmSpawnSync('install', packages);
+  printResult(packages);
   process.exit();
 }
 
@@ -107,22 +114,25 @@ const prompt = async() => {
   }
 
   if(promptAction.value === 'install') {
-    install(getPackages(promptModules.value));
-    console.log('\nHow to use:');
-    packages.homepages.forEach(item => console.log('- ' + item));
+    const packages = getPackages(promptModules.value);
+    npmSpawnSync('install', packages);
+    printResult(packages);
     process.exit();
   }
 
   if(promptAction.value === 'remove') {
-    remove(getPackages(promptModules.value));
+    const packages = getPackages(promptModules.value);
+    npmSpawnSync('remove', packages);
+    printResult(packages);
     process.exit();
   }
 
   if(promptAction.value === 'update') {
-    remove(getPackages(promptModules.value));
-    install(getPackages(promptModules.value));
-    console.log('\nHow to use:');
-    packages.homepages.forEach(item => console.log('- ' + item));
+    const packages = getPackages(promptModules.value);
+    packages.dependencies = packages.dependencies.map(item => item + '@latest');
+    packages.devDependencies = packages.devDependencies.map(item => item + '@latest');
+    npmSpawnSync('install', packages);
+    printResult(packages);
     process.exit();
   }
 };

@@ -46,26 +46,21 @@ export function getPackages(modules: Modules) {
   return result;
 }
 
-export function install(packages: Packages) {
-  if(!isNestJSProject()) {
-    return;
-  }
-  if (packages.dependencies[0]) {
-    spawn.sync('npm', ['install', ...packages.dependencies], { stdio: 'inherit' });
-  }
-  if (packages.devDependencies[0]) {
-    spawn.sync('npm', ['install', '-D', ...packages.devDependencies], { stdio: 'inherit' });
+export function npmSpawnSync(command: 'install' | 'remove', packages: Packages) {
+  if(isNestJSProject()) {
+    if (packages.dependencies[0]) {
+      spawn.sync('npm', [command, ...packages.dependencies], { stdio: 'inherit' });
+    }
+    if (packages.devDependencies[0]) {
+      spawn.sync('npm', [command, '-D', ...packages.devDependencies], { stdio: 'inherit' });
+    }
   }
 }
 
-export function remove(packages: Packages) {
-  if(!isNestJSProject()) {
-    return;
-  }
-  if (packages.dependencies[0]) {
-    spawn.sync('npm', ['remove', ...packages.dependencies], { stdio: 'inherit' });
-  }
-  if (packages.devDependencies[0]) {
-    spawn.sync('npm', ['remove', ...packages.devDependencies], { stdio: 'inherit' });
-  }
+export function printResult(packages: Packages) {
+  console.log('\nPackages:');
+  [...packages.dependencies, ...packages.devDependencies].forEach(item => console.log('- ' + item));
+  console.log('\nHomepages:');
+  packages.homepages.forEach(item => console.log('- ' + item));
+  console.log('');
 }
