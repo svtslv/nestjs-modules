@@ -26,8 +26,8 @@ export function getPackages(modules: Modules) {
   };
 
   modules.forEach((item: string) => {
-    const dependencies = Object.keys(MODULES[item].dependencies).map(i => `${ i }@${ MODULES[item].dependencies[i] }`);
-    const devDependencies = Object.keys(MODULES[item].devDependencies).map(i => `${ i }@${ MODULES[item].devDependencies[i] }`);
+    const dependencies = Object.keys(MODULES[item].dependencies);
+    const devDependencies = Object.keys(MODULES[item].devDependencies);
     result.homepages = [...result.homepages, MODULES[item].homepage];
     result.dependencies = [...result.dependencies, ...dependencies];
     result.devDependencies = [...result.devDependencies, ...devDependencies];
@@ -121,10 +121,10 @@ export function removeModule(packageName: string) {
   if(packageJson.nestjsModules) {
     const config = packageJson.nestjsModules;
     if(config.dependencies) {
-      result.dependencies = Object.keys(config.dependencies).map(i => `${ i }@${ config.dependencies[i] }`);
+      result.dependencies = Object.keys(config.dependencies);
     }
     if(config.devDependencies) {
-      result.devDependencies = Object.keys(config.devDependencies).map(i => `${ i }@${ config.devDependencies[i] }`);
+      result.devDependencies = Object.keys(config.devDependencies);
     }
     if(config.homepage) {
       result.homepages = [config.homepage];
