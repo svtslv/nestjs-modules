@@ -5,7 +5,7 @@ import * as figlet from 'figlet';
 import { argv } from 'optimist';
 import * as prompts from 'prompts';
 import { MODULES } from './modules.constants';
-import { npmSpawnSync, getPackages, printResult } from './modules.utils';
+import { npmSpawnSync, getPackages, printResult, addModule, removeModule } from './modules.utils';
 
 console.log(chalk.green(figlet.textSync('NestJS-Modules')));
 console.log(chalk.green(`Homepage: ${ require('../package.json').homepage }`));
@@ -58,10 +58,19 @@ if (argv.remove) {
 if (argv.update) {
   argv.update = argv.update.split(',');
   const packages = getPackages(argv.update);
-  packages.dependencies = packages.dependencies.map(item => item + '@latest');
-  packages.devDependencies = packages.devDependencies.map(item => item + '@latest');
+  npmSpawnSync('remove', packages);
   npmSpawnSync('install', packages);
   printResult(packages);
+  process.exit();
+}
+
+if (argv._[0] === 'add') {
+  addModule(argv._[1]);
+  process.exit();
+}
+
+if (argv._[0] === 'remove') {
+  removeModule(argv._[1]);
   process.exit();
 }
 
@@ -129,8 +138,7 @@ const prompt = async() => {
 
   if(promptAction.value === 'update') {
     const packages = getPackages(promptModules.value);
-    packages.dependencies = packages.dependencies.map(item => item + '@latest');
-    packages.devDependencies = packages.devDependencies.map(item => item + '@latest');
+    npmSpawnSync('remove', packages);
     npmSpawnSync('install', packages);
     printResult(packages);
     process.exit();
