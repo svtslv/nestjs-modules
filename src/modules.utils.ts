@@ -20,27 +20,29 @@ export function isNestJSProject() {
 
 export function getPackages(modules: Modules) {
   const result = {
-    dev: [],
-    prod: [],
+    homepages: [],
+    dependencies: [],
+    devDependencies: [],
+    installDependencies: '',
     installDevDependencies: '',
-    installProdDependencies: '',
+    removeDependencies: '',
     removeDevDependencies: '',
-    removeProdDependencies: '',
+    updateDependencies: '',
     updateDevDependencies: '',
-    updateProdDependencies: '',
   };
 
   modules.forEach((item: string) => {
-    result.prod = [...result.prod, ...MODULES[item].prod];
-    result.dev = [...result.dev, ...MODULES[item].dev];
+    result.homepages = [...result.homepages, MODULES[item].homepage];
+    result.dependencies = [...result.dependencies, ...MODULES[item].dependencies];
+    result.devDependencies = [...result.devDependencies, ...MODULES[item].devDependencies];
   });
 
-  result.installDevDependencies = result.dev[0] ? 'npm install -D ' + result.dev.join(' ') : '';
-  result.installProdDependencies = result.prod[0] ? 'npm install ' + result.prod. join(' ') : '';
-  result.removeDevDependencies = result.dev[0] ? 'npm remove ' + result.dev.join(' ') : '';
-  result.removeProdDependencies = result.prod[0] ? 'npm remove ' + result.prod. join(' ') : '';
+  result.installDevDependencies = result.devDependencies[0] ? 'npm install -D ' + result.devDependencies.join(' ') : '';
+  result.installDependencies = result.dependencies[0] ? 'npm install ' + result.dependencies. join(' ') : '';
+  result.removeDevDependencies = result.devDependencies[0] ? 'npm remove ' + result.devDependencies.join(' ') : '';
+  result.removeDependencies = result.dependencies[0] ? 'npm remove ' + result.dependencies. join(' ') : '';
+  result.updateDependencies = result.removeDependencies + (result.installDependencies ? ' && ' + result.installDependencies: '');
   result.updateDevDependencies = result.removeDevDependencies + (result.installDevDependencies ? ' && ' + result.installDevDependencies : '');
-  result.updateProdDependencies = result.removeProdDependencies + (result.installProdDependencies ? ' && ' + result.installProdDependencies: '');
   return result;
 }
 
@@ -48,11 +50,11 @@ export function install(packages: Packages) {
   if(!isNestJSProject()) {
     return;
   }
-  if (packages.prod[0]) {
-    spawn.sync('npm', ['install', ...packages.prod], { stdio: 'inherit' });
+  if (packages.dependencies[0]) {
+    spawn.sync('npm', ['install', ...packages.dependencies], { stdio: 'inherit' });
   }
-  if (packages.dev[0]) {
-    spawn.sync('npm', ['install', '-D', ...packages.dev], { stdio: 'inherit' });
+  if (packages.devDependencies[0]) {
+    spawn.sync('npm', ['install', '-D', ...packages.devDependencies], { stdio: 'inherit' });
   }
 }
 
@@ -60,10 +62,10 @@ export function remove(packages: Packages) {
   if(!isNestJSProject()) {
     return;
   }
-  if (packages.prod[0]) {
-    spawn.sync('npm', ['remove', ...packages.prod], { stdio: 'inherit' });
+  if (packages.dependencies[0]) {
+    spawn.sync('npm', ['remove', ...packages.dependencies], { stdio: 'inherit' });
   }
-  if (packages.dev[0]) {
-    spawn.sync('npm', ['remove', ...packages.dev], { stdio: 'inherit' });
+  if (packages.devDependencies[0]) {
+    spawn.sync('npm', ['remove', ...packages.devDependencies], { stdio: 'inherit' });
   }
 }

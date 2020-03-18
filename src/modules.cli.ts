@@ -65,8 +65,8 @@ const prompt = async() => {
     { title: 'Update', value: 'update' },
   ];
   const choiceResult = [
+    { title: 'Start', value: 'start' },
     { title: 'Print', value: 'print' },
-    { title: 'Run', value: 'run' },
   ];
   const choiceModules = Object.keys(MODULES).map(item => ({ title: item, value: item }));
 
@@ -89,20 +89,27 @@ const prompt = async() => {
   const promptResult = await prompts({
     type: 'select',
     name: 'value',
-    message: 'Print or Run?',
+    message: 'Start or Print?',
     choices: choiceResult,
     hint: '- Space to select. Return to submit'
   });
 
+  if(!promptModules.value) {
+    console.log('You have not selected any modules. Exit');
+    process.exit();
+  }
+
   const packages = getPackages(promptModules.value);
 
-  if(promptResult.value !== 'run') {
+  if(promptResult.value === 'print' || !promptResult.value) {
     console.log(packages);
     process.exit();
   }
 
   if(promptAction.value === 'install') {
     install(getPackages(promptModules.value));
+    console.log('How to use:');
+    packages.homepages.forEach(item => console.log('- ' + item));
     process.exit();
   }
 
@@ -112,6 +119,8 @@ const prompt = async() => {
   }
 
   if(promptAction.value === 'update') {
+    console.log('How to use:');
+    packages.homepages.forEach(item => console.log('- ' + item));
     remove(getPackages(promptModules.value));
     install(getPackages(promptModules.value));
     process.exit();
