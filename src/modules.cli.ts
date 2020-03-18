@@ -108,7 +108,7 @@ const prompt = async() => {
 
   if(promptAction.value === 'install') {
     install(getPackages(promptModules.value));
-    console.log('How to use:');
+    console.log('\nHow to use:');
     packages.homepages.forEach(item => console.log('- ' + item));
     process.exit();
   }
@@ -119,10 +119,10 @@ const prompt = async() => {
   }
 
   if(promptAction.value === 'update') {
-    console.log('How to use:');
-    packages.homepages.forEach(item => console.log('- ' + item));
     remove(getPackages(promptModules.value));
     install(getPackages(promptModules.value));
+    console.log('\nHow to use:');
+    packages.homepages.forEach(item => console.log('- ' + item));
     process.exit();
   }
 };
