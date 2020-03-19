@@ -2,11 +2,12 @@
 
 import * as chalk from 'chalk';
 import * as figlet from 'figlet';
-import { argv } from 'optimist';
+import * as minimist from 'minimist';
 import * as prompts from 'prompts';
 import { MODULES } from './modules.constants';
 import { npmSpawnSync, getPackages, printResult, addModule, removeModule } from './modules.utils';
 
+const argv = minimist(process.argv.slice(2));
 console.log(chalk.green(figlet.textSync('NestJS-Modules')));
 console.log(chalk.green(`Homepage: ${ require('../package.json').homepage }`));
 console.log(chalk.green(`Run with --help to print help\n`));
