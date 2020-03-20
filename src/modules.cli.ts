@@ -36,7 +36,8 @@ if (argv.version) {
 
 if (argv.list) {
   console.log('List of modules:');
-  Object.keys(MODULES).forEach(item => console.log(MODULES[item].homepage));
+  const modules = Object.keys(MODULES).map(item => MODULES[item].homepage);
+  console.log(modules.join('\n'), '\n');
   process.exit();
 }
 
@@ -76,29 +77,29 @@ if (argv._[0] === 'remove') {
 }
 
 const prompt = async() => {
-  const choiceAction = [
-    { title: 'install', value: 'install' },
-    { title: 'remove', value: 'remove' },
-    { title: 'update', value: 'update' },
-    { title: 'cancel', value: 'cancel' },
-  ];
-
-  const choiceModules = Object.keys(MODULES).map(item => ({ title: item, value: item }));
-
   const promptModules = await prompts({
     type: 'multiselect',
     name: 'value',
     message: 'List of modules',
-    choices: choiceModules,
-    hint: '- Space to select. Return to submit'
+    choices: Object.keys(MODULES).map(item => ({ title: item, value: item })),
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore
+    instructions: false,
+    min: 1,
+    hint: '- Space to select. Return to submit.'
   });
 
   const promptAction = await prompts({
     type: 'select',
     name: 'value',
     message: 'Choose the action',
-    choices: choiceAction,
-    hint: '- Space to select. Return to submit'
+    choices: [
+      { title: 'install', value: 'install' },
+      { title: 'remove', value: 'remove' },
+      { title: 'update', value: 'update' },
+      { title: 'cancel', value: 'cancel' },
+    ],
+    hint: '- Space to select. Return to submit.'
   });
 
   if(!promptModules.value || !promptModules.value[0]) {
