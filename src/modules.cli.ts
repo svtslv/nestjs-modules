@@ -36,7 +36,7 @@ if (argv.version) {
 
 if (argv.list) {
   console.log('List of modules:');
-  Object.keys(MODULES).forEach(item => console.log(item));
+  Object.keys(MODULES).forEach(item => console.log(MODULES[item].homepage));
   process.exit();
 }
 
@@ -77,48 +77,38 @@ if (argv._[0] === 'remove') {
 
 const prompt = async() => {
   const choiceAction = [
-    { title: 'Install', value: 'install' },
-    { title: 'Remove', value: 'remove' },
-    { title: 'Update', value: 'update' },
+    { title: 'install', value: 'install' },
+    { title: 'remove', value: 'remove' },
+    { title: 'update', value: 'update' },
+    { title: 'cancel', value: 'cancel' },
   ];
-  const choiceResult = [
-    { title: 'Start', value: 'start' },
-    { title: 'Print', value: 'print' },
-  ];
-  const choiceModules = Object.keys(MODULES).map(item => ({ title: item, value: item }));
 
-  const promptAction = await prompts({
-    type: 'select',
-    name: 'value',
-    message: 'Pick Action',
-    choices: choiceAction,
-    hint: '- Space to select. Return to submit'
-  });
+  const choiceModules = Object.keys(MODULES).map(item => ({ title: item, value: item }));
 
   const promptModules = await prompts({
     type: 'multiselect',
     name: 'value',
-    message: 'Pick Modules',
+    message: 'List of modules',
     choices: choiceModules,
     hint: '- Space to select. Return to submit'
   });
 
-  const promptResult = await prompts({
+  const promptAction = await prompts({
     type: 'select',
     name: 'value',
-    message: 'Start or Print?',
-    choices: choiceResult,
+    message: 'Choose the action',
+    choices: choiceAction,
     hint: '- Space to select. Return to submit'
   });
 
-  if(!promptModules.value) {
+  if(!promptModules.value || !promptModules.value[0]) {
     console.log('You have not selected any modules. Exit');
     process.exit();
   }
 
   const packages = getPackages(promptModules.value);
 
-  if(promptResult.value === 'print' || !promptResult.value) {
+  if(promptAction.value === 'cancel' || !promptAction.value) {
     console.log(packages);
     process.exit();
   }
