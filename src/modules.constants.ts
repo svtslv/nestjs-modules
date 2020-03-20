@@ -124,9 +124,9 @@ export const MODULES = {
     dependencies: { 'nest-access-control': null },
     devDependencies: {},
   },
-  'nest-emitter': {
-    homepage: 'https://github.com/nestjsx/nest-emitter',
-    dependencies: { 'nest-emitter': null },
+  'class-validator-callback': {
+    homepage: 'https://github.com/svtslv/class-validator-callback',
+    dependencies: { 'class-validator': null, 'class-validator-callback': null, 'class-transformer': null },
     devDependencies: {},
   },
 } as const;
