@@ -36,7 +36,7 @@ if (argv.version) {
 
 if (argv.list) {
   console.log('List of modules:');
-  const modules = Object.keys(MODULES).map(item => MODULES[item].homepage);
+  const modules = Object.keys(MODULES).map(item => item + ' - ' + MODULES[item].homepage);
   console.log(modules.join('\n'), '\n');
   process.exit();
 }

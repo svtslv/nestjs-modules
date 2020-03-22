@@ -29,20 +29,20 @@ export const MODULES = {
     dependencies: { 'nestjs-geoip2': null, '@maxmind/geoip2-node': null },
     devDependencies: {},
   },
-  'nestjs-ioredis': {
-    homepage: 'https://github.com/svtslv/nestjs-ioredis',
-    dependencies: { '@svtslv/nestjs-ioredis': null, 'ioredis': null },
-    devDependencies: { '@types/ioredis': null },
-  },
-  'nestjs-minio': {
-    homepage: 'https://github.com/svtslv/nestjs-minio',
-    dependencies: { '@svtslv/minio': null, 'minio': null },
-    devDependencies: { '@types/minio': null },
-  },
   'nestjs-mailer': {
     homepage: 'https://github.com/svtslv/nestjs-mailer',
     dependencies: { 'nestjs-mailer': null, 'nodemailer': null, 'handlebars': null },
     devDependencies: { '@types/nodemailer': null },
+  },
+  '@svtslv/nestjs-ioredis': {
+    homepage: 'https://github.com/svtslv/nestjs-ioredis',
+    dependencies: { '@svtslv/nestjs-ioredis': null, 'ioredis': null },
+    devDependencies: { '@types/ioredis': null },
+  },
+  '@svtslv/minio': {
+    homepage: 'https://github.com/svtslv/nestjs-minio',
+    dependencies: { '@svtslv/minio': null, 'minio': null },
+    devDependencies: { '@types/minio': null },
   },
   '@nestjs/bull': {
     homepage: 'https://github.com/nestjs/bull',
