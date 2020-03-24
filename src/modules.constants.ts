@@ -39,9 +39,9 @@ export const MODULES = {
     dependencies: { '@svtslv/nestjs-ioredis': null, 'ioredis': null },
     devDependencies: { '@types/ioredis': null },
   },
-  '@svtslv/minio': {
+  '@svtslv/nestjs-minio': {
     homepage: 'https://github.com/svtslv/nestjs-minio',
-    dependencies: { '@svtslv/minio': null, 'minio': null },
+    dependencies: { '@svtslv/nestjs-minio': null, 'minio': null },
     devDependencies: { '@types/minio': null },
   },
   '@nestjs/bull': {
