@@ -81,7 +81,7 @@ const prompt = async() => {
     type: 'multiselect',
     name: 'value',
     message: 'List of modules',
-    choices: Object.keys(MODULES).map(item => ({ title: MODULES[item].homepage, value: item })),
+    choices: Object.keys(MODULES).map(item => ({ title: item + ' - ' + MODULES[item].homepage, value: item })),
     // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
     // @ts-ignore
     instructions: false,
