@@ -34,6 +34,11 @@ export const MODULES = {
     dependencies: { 'nestjs-mailer': null, 'nodemailer': null, 'handlebars': null },
     devDependencies: { '@types/nodemailer': null },
   },
+  'nestjs-bullmq': {
+    homepage: 'https://github.com/svtslv/nestjs-bullmq',
+    dependencies: { 'nestjs-bullmq': null, 'bullmq': null },
+    devDependencies: {},
+  },
   '@svtslv/nestjs-ioredis': {
     homepage: 'https://github.com/svtslv/nestjs-ioredis',
     dependencies: { '@svtslv/nestjs-ioredis': null, 'ioredis': null },
