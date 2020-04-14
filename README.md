@@ -22,7 +22,7 @@
 - Redis module for NestJS - [nestjs-ioredis](https://github.com/svtslv/nestjs-ioredis)
 - Minio module for NestJS - [nestjs-minio](https://github.com/svtslv/nestjs-minio)
 - Mailer module for NestJS - [nestjs-mailer](https://github.com/svtslv/nestjs-mailer)
-- BullMQ module for NestJS - [nestjs-mailer](https://github.com/svtslv/nestjs-bullmq)
+- BullMQ module for NestJS - [nestjs-bullmq](https://github.com/svtslv/nestjs-bullmq)
 
 ## Description
 
